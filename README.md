@@ -18,8 +18,7 @@ google-chrome ${wiki}/wiki/Special:CreateAccount  # Create bot account, open in 
 google-chrome ${wiki}/wiki/Special:BotPasswords   # Create a bot-password and bot-pasword-alias, follow instructions.
 ```
 
-Create `./logins.js` with logins and api url for your target wiki(s):
-
+Create `./logins.js` with logins and api url for your target wiki(s), example:
 ```js
 module.exports = {
 	commons: {
