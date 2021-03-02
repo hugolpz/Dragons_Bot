@@ -18,6 +18,8 @@
   "license": "ISC",
   "dependencies": {
     "node-fetch": "^2.6.1",
-    "wikiapi": "^1.14.0"
+    "npm-check-updates": "^11.1.10",
+		"wikiapi" : "latest",
+		"cejs" : "latest"
   }
 }

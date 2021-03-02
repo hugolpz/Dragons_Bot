@@ -26,7 +26,7 @@ var extract = function(text,start,end){ return text.split('\n').slice(start, end
 (async () => {
 	// Connect
 	const targetWiki = new Wikiapi;
-	await targetWiki.login(logins.liliY.user, logins.liliY.pass, 'https://www.lingualibre.org/api.php');
+	await targetWiki.login(logins.lili.user, logins.lili.pass, 'https://www.lingualibre.org/api.php');
     for(i=0;i<langs.length;i++){
 		// Load text
 		lang = langs[i],
@@ -50,14 +50,14 @@ var extract = function(text,start,end){ return text.split('\n').slice(start, end
 			await targetWiki.edit_page(listPage, function(page_data) {
 				console.log('pagedata',page_data)
 				return sample;
-			}, {bot: 1, nocreate: 0, minor: 1});
+			}, {bot: 1, nocreate: 1, minor: 1, summary: 'test edit'});
 			console.log('Edit page: Done.');
 			
 			// Print list_talk
 			await targetWiki.edit_page(listTalk, function(page_data) {
 				console.log('pagedata',page_data)
 				return `== Source ==\n{{UNILEX license|`+iso+`}}`;
-			}, {bot: 1, nocreate: 0, minor: 1});	
+			}, {bot: 1, minor: 1, summary: 'test edit'});	
 			console.log('Edit talk: Done.');
 		}
 	}
