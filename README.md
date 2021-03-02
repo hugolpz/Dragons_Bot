@@ -37,5 +37,5 @@ module.exports = {
 ### Run
 Edit index.js according to YOUR needs. Then :
 ```bash
-node index.js                                     # run main script
+node lilist.js                                     # run `lilist.js` a list uploader.
 ```
