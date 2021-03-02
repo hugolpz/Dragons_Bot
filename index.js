@@ -26,7 +26,6 @@ var extract = function(text,start,end){ return text.split('\n').slice(start, end
 (async () => {
 	// Connect
 	const targetWiki = new Wikiapi;
-	//await targetWiki.login('Dragons Bot@Dragons_Bot', 'omgjsomafo9qf0815t2ai8ktjdkbv6mr', 'https://www.lingualibre.org/api.php');
 	await targetWiki.login(logins.liliY.user, logins.liliY.pass, 'https://www.lingualibre.org/api.php');
     for(i=0;i<langs.length;i++){
 		// Load text
