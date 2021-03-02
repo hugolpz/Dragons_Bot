@@ -25,12 +25,12 @@ module.exports = {
 	commons: {
 		user: 'bot-pasword-alias',
 		pass: 'bot-password',
-        api : 'https://commons.wikimedia.org/api.php'
+		api : 'https://commons.wikimedia.org/api.php'
 	},
 	lili: {
 		user: 'bot-pasword-alias2',
 		pass: 'bot-password2',
-        api : 'https://lingualibre.org/api.php'
+		api : 'https://lingualibre.org/api.php'
 	},
 };
 ```
