@@ -20,31 +20,39 @@ var ranges = [
 	[ '45001', '50000' ] */
 ];
 
-var extract = function(text,start,end){ return text.split('\n').slice(start, end).join('\n'); };
 
+// Sugar tools
+var extract = function(text, start, end) {
+	start<1?start=1:start=start;
+	return text.split('\n').slice(start-1, end).join('\n');
+};
 // edit page: method 2
 (async () => {
 	// Connect
 	const targetWiki = new Wikiapi;
 	await targetWiki.login(logins.lili.user, logins.lili.pass, 'https://www.lingualibre.org/api.php');
+
+	// For all languages in `./languages.js`
     for(i=0;i<langs.length;i++){
 		// Load text
 		lang = langs[i],
 		iso  = lang.iso,
+		Iso  = lang.iso[0].toUpperCase() + lang.iso.slice(1),
 		file = lang.file; 
 		const url = 'https://raw.githubusercontent.com/lingua-libre/unilex/master/data/frequency/'+file+'.txt'
 		const response = await fetch(url);
 		const text = await response.text();
 		console.log('Fetch: Done.');
 
+		// For each item in `ranges`
 		for(j=0;j<ranges.length;j++){
 			// Split text, define pagename
-			var start = ranges[j][0]
-				end   = ranges[j][1]
+			var start = ranges[j][0],
+				end   = ranges[j][1],
 				sample= extract(text,+start,+end);
 			// Define pages
-			var listPage= 'User:Yug/List:'+iso+'/UNILEX-'+start+'-'+end,
-				listTalk= 'User:Yug/List_talk:'+iso+'/UNILEX-'+start+'-'+end;
+			var listPage= 'User:Yug/List:'+Iso+'/UNILEX-'+start+'-'+end,
+				listTalk= 'User:Yug/List_talk:'+Iso+'/UNILEX-'+start+'-'+end;
 
 			// Print list to page
 			await targetWiki.edit_page(listPage, function(page_data) {
@@ -57,7 +65,7 @@ var extract = function(text,start,end){ return text.split('\n').slice(start, end
 			await targetWiki.edit_page(listTalk, function(page_data) {
 				console.log('pagedata',page_data)
 				return `== Source ==\n{{UNILEX license|`+iso+`}}`;
-			}, {bot: 1, minor: 1, summary: 'test edit'});	
+			}, {bot: 1, nocreate: 1, minor: 1, summary: 'test edit'});	
 			console.log('Edit talk: Done.');
 		}
 	}
