@@ -1,6 +1,6 @@
 const Wikiapi= require('wikiapi');
-const logins = require('./logins.js');
 const fetch  = require('node-fetch');
+const logins = require('./logins.js');
 const langs  = require('./languages.js');
 
 
@@ -50,23 +50,25 @@ var extract = function(text, start, end) {
 			var start = ranges[j][0],
 				end   = ranges[j][1],
 				sample= extract(text,+start,+end);
-			// Define pages
-			var listPage= 'User:Yug/List:'+Iso+'/UNILEX-'+start+'-'+end,
-				listTalk= 'User:Yug/List_talk:'+Iso+'/UNILEX-'+start+'-'+end;
+			if(sample!==''){
+				// Define pages
+				var listPage= 'User:Yug/List:'+Iso+'/UNILEX-'+start+'-'+end,
+					listTalk= 'User:Yug/List_talk:'+Iso+'/UNILEX-'+start+'-'+end;
 
-			// Print list to page
-			await targetWiki.edit_page(listPage, function(page_data) {
-				console.log('pagedata',page_data)
-				return sample;
-			}, {bot: 1, nocreate: 1, minor: 1, summary: 'test edit'});
-			console.log('Edit page: Done.');
-			
-			// Print list_talk
-			await targetWiki.edit_page(listTalk, function(page_data) {
-				console.log('pagedata',page_data)
-				return `== Source ==\n{{UNILEX license|`+iso+`}}`;
-			}, {bot: 1, nocreate: 1, minor: 1, summary: 'test edit'});	
-			console.log('Edit talk: Done.');
+				// Print list to page
+				await targetWiki.edit_page(listPage, function(page_data) {
+					console.log('pagedata',page_data)
+					return sample;
+				}, {bot: 1, minor: 1, summary: 'test edit'});
+				console.log('Edit page: Done.');
+				
+				// Print list_talk
+				await targetWiki.edit_page(listTalk, function(page_data) {
+					console.log('pagedata',page_data)
+					return `== Source ==\n{{UNILEX license|`+iso+`}}`;
+				}, {bot: 1, minor: 1, summary: 'test edit'});	
+				console.log('Edit talk: Done.');
+			}
 		}
 	}
 })();
