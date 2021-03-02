@@ -18,19 +18,25 @@ google-chrome ${wiki}/wiki/Special:CreateAccount  # Create bot account, open in 
 google-chrome ${wiki}/wiki/Special:BotPasswords   # Create a bot-password and bot-pasword-alias, follow instructions.
 ```
 
-Create `./logins.js` with the relevant logins for your target wiki(s):
+Create `./logins.js` with logins and api url for your target wiki(s):
 
 ```js
 module.exports = {
 	commons: {
 		user: 'bot-pasword-alias',
 		pass: 'bot-password',
+        api : 'https://commons.wikimedia.org/api.php'
+	},
+	lili: {
+		user: 'bot-pasword-alias2',
+		pass: 'bot-password2',
         api : 'https://lingualibre.org/api.php'
-	}
+	},
 };
 ```
 
 ### Run
+Edit index.js according to YOUR needs. Then :
 ```bash
 node index.js                                     # run main script
 ```
