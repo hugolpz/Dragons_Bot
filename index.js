@@ -27,7 +27,7 @@ var extract = function(text,start,end){ return text.split('\n').slice(start, end
 	// Connect
 	const targetWiki = new Wikiapi;
 	//await targetWiki.login('Dragons Bot@Dragons_Bot', 'omgjsomafo9qf0815t2ai8ktjdkbv6mr', 'https://www.lingualibre.org/api.php');
-	await targetWiki.login(logins.lili.user, logins.lili.pass, 'https://www.lingualibre.org/api.php');
+	await targetWiki.login(logins.liliY.user, logins.liliY.pass, 'https://www.lingualibre.org/api.php');
     for(i=0;i<langs.length;i++){
 		// Load text
 		lang = langs[i],
@@ -44,10 +44,10 @@ var extract = function(text,start,end){ return text.split('\n').slice(start, end
 				end   = ranges[j][1]
 				sample= extract(text,+start,+end);
 			// Define pages
-			var listPage= 'List:'+iso+'/UNILEX-'+start+'-'+end,
-				listTalk= 'List_talk:'+iso+'/UNILEX-'+start+'-'+end;
+			var listPage= 'User:Yug/List:'+iso+'/UNILEX-'+start+'-'+end,
+				listTalk= 'User:Yug/List_talk:'+iso+'/UNILEX-'+start+'-'+end;
 
-			// Print list
+			// Print list to page
 			await targetWiki.edit_page(listPage, function(page_data) {
 				console.log('pagedata',page_data)
 				return sample;
