@@ -35,7 +35,9 @@ module.exports = {
 ```
 
 ### Run
-Edit index.js according to YOUR needs. Then :
+Edit logins credential `USER`, `PASS` and `API` to call the right values from `./logins.js`.
+
+Hack code according to your needs, then :
 ```bash
 node lilist.js                                     # run `lilist.js` a list uploader.
 ```

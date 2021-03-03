@@ -3,9 +3,12 @@ const fetch  = require('node-fetch');
 const logins = require('./logins.js');
 const langs  = require('./languages.js');
 
+// Edit login credentials
+var USER = logins.lili.user,
+	PASS = logins.lili.pass,
+	API  = logins.lili.api;
 
-// var newContent = `\nHi, I'm Dragons Bot ! I plan to upload lists and others maintenances.`;
-
+// Sugar data and tools
 var ranges = [
 	[ '00001', '01000' ],
 	[ '01001', '05000' ],/* 
@@ -19,18 +22,18 @@ var ranges = [
 	[ '40001', '45000' ],
 	[ '45001', '50000' ] */
 ];
-
-
-// Sugar tools
 var extract = function(text, start, end) {
 	start<1?start=1:start=start;
 	return text.split('\n').slice(start-1, end).join('\n');
 };
+var messageTest = `\nHi, I'm a Bot ! I plan to upload lists and others maintenances.`;
+
+
 // edit page: method 2
 (async () => {
 	// Connect
 	const targetWiki = new Wikiapi;
-	await targetWiki.login(logins.lili.user, logins.lili.pass, 'https://www.lingualibre.org/api.php');
+	await targetWiki.login(USER, PASS, API);
 
 	// For all languages in `./languages.js`
     for(i=0;i<langs.length;i++){
