@@ -6,7 +6,8 @@
 //  - rule: if recordings > 2000 according to https://lingualibre.org/wiki/LinguaLibre:Stats, then `active`.
 
 module.exports = [
-	{ 'iso639-3':'ibo', file:'ig' },/*
+	{ 'iso639-3':'ibo', file:'ig' },
+	{ 'iso639-3':'ita', file:'it', "corpus-limit": 30000 },/*
 	{ 'iso639-3':'aai', file:'aai' },
 	{ 'iso639-3':'aak', file:'aak' },
 	{ 'iso639-3':'aau', file:'aau' },
