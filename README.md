@@ -42,18 +42,18 @@ Hack code according to your needs, then :
 node create-Lingualibre-lists-unilex.js              # run unilex lists uploader.
 ```
 
-### Roles
-`create-Lingualibre-lists-unilex.js`: fetch url or read locally `unilex-extended` data, then according to gentle ramp approach's ranges picks section, write them to LinguaLibre. Add license to talkpage, recommendation to `Category:Speakers of {iso}`
-* input: `languages.js` with iso6390-3 and filenames.
+### Current script
+* `create-Lingualibre-lists-unilex.js`: fetch url or read locally available unilex-extended's data, uses the gentle ramp approach's ranges to picks section, write them to LinguaLibre's List. Add license to talkpage, recommendation to ''Category:Speakers_of_{iso}''
+  * input: `languages.js` with iso6390-3 and filenames.
 
-`create-Lingualibre-list-unilex-by-letters.js` : given one language, fetch url or read locally `unilex-extended` data sorted and split by letters, write them to LinguaLibre. Add license to talkpage.
-* input: iso code.
-
-`edit-Commons-filename.js` : rename files on Commons.
-* input: target commons category, regex.
-
-`edit-Commons-wikitext.js` : target category, regex.
-
-`edit-Lingualibre-Qitem.js` : target item(s), propertie to edit, value or function defining value to submit.
-
-`edit-Lingualibre-wikitext.js` : target category, regex.
+### Wishlist
+* `create-Lingualibre-list-unilex-by-letters.js` : given one language's iso, fetch url or read locally unilex-extended's data sorted and split by letters, write them to LinguaLibre as list. Add license to talkpage.
+  * input: iso.
+* `edit-Commons-filename.js` : rename files on Commons.
+  * input: target commons category, regex.
+* `edit-Commons-wikitext.js` : edit wikitext on Commons files to fix them, mainly their templates and categories.
+  * input: target category, regex.
+* `edit-Lingualibre-Qitem.js` : edit one or a set of Qitems on Lingualibre to fix them.
+  * input: list of target items, property, value or  
+* `edit-Lingualibre-wikitext.js` : edit wikitext on Lingualibre pages to fix them, mainly lists or users.
+  * input: target category, regex.
