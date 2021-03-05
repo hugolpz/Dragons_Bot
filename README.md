@@ -45,10 +45,15 @@ node create-Lingualibre-lists-unilex.js              # run unilex lists uploader
 ### Roles
 `create-Lingualibre-lists-unilex.js`: fetch url or read locally `unilex-extended` data, then according to gentle ramp approach's ranges picks section, write them to LinguaLibre. Add license to talkpage, recommendation to `Category:Speakers of {iso}`
 * input: `languages.js` with iso6390-3 and filenames.
+
 `create-Lingualibre-list-unilex-by-letters.js` : given one language, fetch url or read locally `unilex-extended` data sorted and split by letters, write them to LinguaLibre. Add license to talkpage.
 * input: iso code.
+
 `edit-Commons-filename.js` : rename files on Commons.
 * input: target commons category, regex.
+
 `edit-Commons-wikitext.js` : target category, regex.
+
 `edit-Lingualibre-Qitem.js` : target item(s), propertie to edit, value or function defining value to submit.
+
 `edit-Lingualibre-wikitext.js` : target category, regex.
