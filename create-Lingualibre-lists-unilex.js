@@ -30,7 +30,11 @@ var extract = function(text, start, end) {
 	return text.split('\n').slice(start-1, end).join('\n');
 };
 var messageTest = `\nHi, I'm a Bot ! I plan to upload lists and others maintenances.`;
-var pagesEdited = [];
+var pagesEdited = {
+	listPages: [],
+	listTalks: [],
+	categories: []
+};
 
 // edit page: method 2
 (async () => {
@@ -65,29 +69,34 @@ var pagesEdited = [];
 			if(sample!==''){
 				// Define pages
 				var listPage= `List:${Iso}/Most_used_words,_UNILEX_${j+1}:_words_${start}_to_${end}`,
-					listTalk= `List_talk:${Iso}/Most_used_words,_UNILEX_${j+1}:_words_${start}_to_${end}`;
-				
+					listTalk= `List_talk:${Iso}/Most_used_words,_UNILEX_${j+1}:_words_${start}_to_${end}`,
+					category= `Category:Speakers_in_${iso}`;
 				// Attack message
 				console.log(listPage + ' ***************************** */')
 				console.log('Length for '+start+'-'+end+' : '+lines,'.\t Total words provided : ', +start-1+lines)
 
 				// Print list to page
 				await targetWiki.edit_page(listPage, function(page_data) {
-					// console.log('pagedata',page_data)
 					return sample;
 				}, {bot: 1, minor: 1, summary: 'test edit'});
 				console.log('Edit page: Done.');
 				
 				// Print list_talk
 				await targetWiki.edit_page(listTalk, function(page_data) {
-					// console.log('pagedata',page_data)
 					return `== Source ==\n{{UNILEX license|`+iso+`}}`;
 				}, {bot: 1, minor: 1, summary: 'test edit'});	
 				console.log('Edit talkpage: Done.');
 
+				// Print list_talk
+				await targetWiki.edit_page(category, function(page_data) {
+					return `{{recommended lists|code=${Iso}|public=beginners and teachers|series=unilex}}}}`;
+				}, {bot: 1, minor: 1, summary: 'test edit'});	
+				console.log('Category: Done.');
+
 				// Records pagesEdited
-				pagesEdited.push(listPage);
-				pagesEdited.push(listTalk);
+				pagesEdited.listPages.push(listPage);
+				pagesEdited.listTalks.push(listTalk);
+				pagesEdited.categories.push(category);
 			}
 		}
 	}
