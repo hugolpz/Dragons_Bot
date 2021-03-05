@@ -56,4 +56,4 @@ node create-Lingualibre-lists-unilex.js              # run unilex lists uploader
 * `edit-Lingualibre-Qitem.js` : edit one or a set of Qitems on Lingualibre to fix them.
   * input: list of target items, property, value or  
 * `edit-Lingualibre-wikitext.js` : edit wikitext on Lingualibre pages to fix them, mainly lists or users.
-  * input: target category, regex.
+  * input: target category, regex.
