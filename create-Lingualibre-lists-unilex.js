@@ -2,12 +2,16 @@ const Wikiapi= require('wikiapi');
 const fetch  = require('node-fetch');
 const fs     = require('fs');
 const logins = require('./logins.js');
-const langs  = require('./languages.js');
+const FILES  = require('./data/files-unilex-mar-letters.js');
 
 // Edit login credentials
 var USER = logins.lili.user,
 	PASS = logins.lili.pass,
 	API  = logins.lili.api;
+
+//const filesRoot = '../unilex-extended/frequency-sorted-hash/';
+//const filesRoot = 'https://raw.githubusercontent.com/hugolpz/unilex-extended/master/frequency-sorted-hash/';
+const filesRoot = '../unilex-extended/mr/';
 
 // Sugar data and tools
 var ranges = [
@@ -26,10 +30,31 @@ var ranges = [
 	[ '45001', '50000' ] 
 ];
 var extract = function(text, start, end) {
+	console.log(typeof text);
+	console.log(text);
 	start<1?start=1:start=start;
 	return text.split('\n').slice(start-1, end).join('\n');
 };
-var messageTest = `\nHi, I'm a Bot ! I plan to upload lists and others maintenances.`;
+
+// Get file content from url or local directory
+var getFileContent = function(path){
+	var text = '';
+	if(path.search("http://") !== -1 || path.search("https://") !== -1 ){
+		(async () => {
+			response = await fetch(path);
+			text = await response.text();
+		})();
+	}
+	else {
+		raw = fs.readFileSync(path,'utf8').replace(/[\r\n]$/gm,""); // remove end-of-file line jump
+		text = extract(raw,1,limit);    // extract
+	}
+	message= text!==''? 'Get file content: Done.': 'Get file content: Failed.';
+	console.log(message)
+	return text;
+};
+
+// Log list of edited pages
 var pagesEdited = {
 	listPages: [],
 	listTalks: [],
@@ -42,21 +67,17 @@ var pagesEdited = {
 	const targetWiki = new Wikiapi;
 	await targetWiki.login(USER, PASS, API);
 
-	// For all languages in `./languages.js`
-    for(i=0;i<langs.length;i++){
+	// For each FILE from FILES
+    for(i=0;i<FILES.length;i++){
 		// Load text
-		lang = langs[i],
-		iso  = lang['iso639-3'],
-		Iso  = lang['iso639-3'][0].toUpperCase() + lang['iso639-3'].slice(1),
-		limit= lang['corpus-limit'] || 5000,
-		file = lang.file; 
-//		const url = 'https://raw.githubusercontent.com/hugolpz/unilex-extended/master/frequency-sorted-hash/'+file+'.txt'
-//		const response = await fetch(url);
-//		const text = await response.text();
-		const path = '../unilex-extended/frequency-sorted-hash/'+file+'.txt';
-		var text = fs.readFileSync(path,'utf8').replace(/[\r\n]$/gm,"");
-			text = extract(text,1,limit);    // extract + remove end-of-file line jump
-		console.log('Fetch: Done.');
+		FILE = FILES[i],
+		iso  = FILE['iso639-3'],
+		Iso  = FILE['iso639-3'][0].toUpperCase() + FILE['iso639-3'].slice(1),
+		limit= FILE['corpus-limit'] || 5000,
+		file = FILE.filename,
+		base = file.replace('.txt','')
+		console.log(filesRoot+file);
+		text = getFileContent(filesRoot+file);
 
 		// For each item in `ranges`
 		for(j=0;j<ranges.length;j++){
@@ -66,10 +87,12 @@ var pagesEdited = {
 				sample= extract(text,+start,+end),
 				lines= sample.split('\n').length;
 
-			if(sample!==''){
+			if(sample!=='' && file.search("-" == -1)){
 				// Define pages
-				var listPage= `List:${Iso}/Most_used_words,_UNILEX_${j+1}:_words_${start}_to_${end}`,
-					listTalk= `List_talk:${Iso}/Most_used_words,_UNILEX_${j+1}:_words_${start}_to_${end}`,
+				var listPage= `List:${Iso}/Unilex_common_words_${j+1}`,
+					listTalk= `List_talk:${Iso}/Unilex_common_words_${j+1}`;
+				var listPage= `List:${Iso}/Letter_${base}-${j+1}`,
+					listTalk= `List_talk:${Iso}/Letter_${base}-${j+1}`,
 					category= `Category:Speakers_in_${iso}`;
 				// Attack message
 				console.log(listPage + ' ***************************** */')
@@ -79,24 +102,23 @@ var pagesEdited = {
 				await targetWiki.edit_page(listPage, function(page_data) {
 					return sample;
 				}, {bot: 1, minor: 1, summary: 'test edit'});
+				pagesEdited.listPages.push(listPage);
 				console.log('Edit page: Done.');
 				
 				// Print list_talk
 				await targetWiki.edit_page(listTalk, function(page_data) {
-					return `== Source ==\n{{UNILEX license|`+iso+`}}`;
+					return `{{Gentle ramp}}\n{{UNILEX license|`+iso+`}}`;
 				}, {bot: 1, minor: 1, summary: 'test edit'});	
+				pagesEdited.listTalks.push(listTalk);
 				console.log('Edit talkpage: Done.');
 
-				// Print list_talk
+				// Print category (doesn't save if content == submition)
 				await targetWiki.edit_page(category, function(page_data) {
-					return `{{recommended lists|code=${Iso}|public=beginners and teachers|series=unilex}}}}`;
-				}, {bot: 1, minor: 1, summary: 'test edit'});	
+					return `{{Speakers category|${iso}}}\n{{recommended lists|code=${Iso}|public=beginners, teachers, wikimedians}}`;
+				}, {bot: 1, minor: 1, summary: 'test edit'});
+				pagesEdited.categories.push(category);	
 				console.log('Category: Done.');
 
-				// Records pagesEdited
-				pagesEdited.listPages.push(listPage);
-				pagesEdited.listTalks.push(listTalk);
-				pagesEdited.categories.push(category);
 			}
 		}
 	}

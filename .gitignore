@@ -1,2 +1,9 @@
-logins.js
 node_modules/
+SOP/
+_images/
+data/*
+reds/
+.vscode/
+logins.js
+logins-*.js
+package-lock.json
