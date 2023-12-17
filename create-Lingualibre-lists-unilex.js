@@ -2,16 +2,18 @@ const Wikiapi= require('wikiapi');
 const fetch  = require('node-fetch');
 const fs     = require('fs');
 const logins = require('./logins.js');
-const FILES  = require('./data/files-unilex-mar-letters.js');
+const lang   = require('./languages.js');
+
+console.log(lang)
 
 // Edit login credentials
 var USER = logins.lili.user,
 	PASS = logins.lili.pass,
 	API  = logins.lili.api;
 
-//const filesRoot = '../unilex-extended/frequency-sorted-hash/';
+const filesRoot = '../unilex-extended/frequency-sorted-hash/';
 //const filesRoot = 'https://raw.githubusercontent.com/hugolpz/unilex-extended/master/frequency-sorted-hash/';
-const filesRoot = '../unilex-extended/mr/';
+//const filesRoot = '../unilex-extended/mr/';
 
 // Sugar data and tools
 var ranges = [
@@ -68,15 +70,15 @@ var pagesEdited = {
 	await targetWiki.login(USER, PASS, API);
 
 	// For each FILE from FILES
-    for(i=0;i<FILES.length;i++){
+    for(i=0;i<lang.length;i++){
 		// Load text
-		FILE = FILES[i],
+		FILE = lang[i];
 		iso  = FILE['iso639-3'],
 		Iso  = FILE['iso639-3'][0].toUpperCase() + FILE['iso639-3'].slice(1),
 		limit= FILE['corpus-limit'] || 5000,
-		file = FILE.filename,
-		base = file.replace('.txt','')
-		console.log(filesRoot+file);
+		file = FILE['file']+'.txt',
+		console.log('FILE file: ------------------- ',file)
+		base = file.replace('.txt',''),
 		text = getFileContent(filesRoot+file);
 
 		// For each item in `ranges`
@@ -89,10 +91,10 @@ var pagesEdited = {
 
 			if(sample!=='' && file.search("-" == -1)){
 				// Define pages
+				//var listPage= `List:${Iso}/Letter_${base}-${j+1}`,
+				//	listTalk= `List_talk:${Iso}/Letter_${base}-${j+1}`;
 				var listPage= `List:${Iso}/Unilex_common_words_${j+1}`,
 					listTalk= `List_talk:${Iso}/Unilex_common_words_${j+1}`;
-				var listPage= `List:${Iso}/Letter_${base}-${j+1}`,
-					listTalk= `List_talk:${Iso}/Letter_${base}-${j+1}`,
 					category= `Category:Speakers_in_${iso}`;
 				// Attack message
 				console.log(listPage + ' ***************************** */')
@@ -101,21 +103,21 @@ var pagesEdited = {
 				// Print list to page
 				await targetWiki.edit_page(listPage, function(page_data) {
 					return sample;
-				}, {bot: 1, minor: 1, summary: 'test edit'});
+				}, {bot: 1, minor: 1, summary: `Create list of words for speakers of ${iso}`});
 				pagesEdited.listPages.push(listPage);
 				console.log('Edit page: Done.');
 				
 				// Print list_talk
 				await targetWiki.edit_page(listTalk, function(page_data) {
 					return `{{Gentle ramp}}\n{{UNILEX license|`+iso+`}}`;
-				}, {bot: 1, minor: 1, summary: 'test edit'});	
+				}, {bot: 1, minor: 1, summary: `Create talk page with categorizing template for ${iso}`});	
 				pagesEdited.listTalks.push(listTalk);
 				console.log('Edit talkpage: Done.');
 
 				// Print category (doesn't save if content == submition)
 				await targetWiki.edit_page(category, function(page_data) {
 					return `{{Speakers category|${iso}}}\n{{recommended lists|code=${Iso}|public=beginners, teachers, wikimedians}}`;
-				}, {bot: 1, minor: 1, summary: 'test edit'});
+				}, {bot: 1, minor: 1, summary: `Create page for speakers of ${iso}`});
 				pagesEdited.categories.push(category);	
 				console.log('Category: Done.');
 
