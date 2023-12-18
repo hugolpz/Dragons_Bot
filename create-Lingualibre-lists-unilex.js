@@ -114,14 +114,14 @@ var pagesEdited = {
 				pagesEdited.listTalks.push(listTalk);
 				console.log('Edit talkpage: Done.');
 
-				// Print category (doesn't save if content == submition)
-				await targetWiki.edit_page(category, function(page_data) {
-					return `{{Speakers category|${iso}}}\n{{recommended lists|code=${Iso}|public=beginners, teachers, wikimedians}}`;
-				}, {bot: 1, minor: 1, summary: `Create page for speakers of ${iso}`});
-				pagesEdited.categories.push(category);	
-				console.log('Category: Done.');
-
 			}
+
+			// Print category (doesn't save if content == submition)
+			await targetWiki.edit_page(category, function(page_data) {
+				return `{{Speakers category|${iso}}}\n{{recommended lists|code=${Iso}|public=beginners, teachers, wikimedians}}`;
+			}, {bot: 1, minor: 1, summary: `Create page for speakers of ${iso}`});
+			pagesEdited.categories.push(category);	
+			console.log('Category: Done.');
 		}
 	}
 	console.log(pagesEdited)

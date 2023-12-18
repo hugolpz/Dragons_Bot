@@ -5,7 +5,7 @@
 //  - active: x = 30000
 //  - rule: if recordings > 2000 according to https://lingualibre.org/wiki/LinguaLibre:Stats, then `active`.
 
-module.exports = [/*
+module.exports = [
 	{ 'iso639-3':'aai', file:'aai' },
 	{ 'iso639-3':'aak', file:'aak' },
 	{ 'iso639-3':'aau', file:'aau' },
@@ -363,14 +363,14 @@ module.exports = [/*
 	{ 'iso639-3':'hun', file:'hu' },
 	{ 'iso639-3':'huu', file:'huu' }, 
 	{ 'iso639-3':'huv', file:'huv' },
-	{ 'iso639-3':'hvn', file:'hvn' }, */
+	{ 'iso639-3':'hvn', file:'hvn' }, 
 	{ 'iso639-3':'arm', file:'hy' }, /** /
 	{ 'iso639-3':'hye', file:'hy' },
 	{ 'iso639-3':'ian', file:'ian' },
 	{ 'iso639-3':'iba', file:'iba' },
 	{ 'iso639-3':'icr', file:'icr' },
 	{ 'iso639-3':'ind', file:'id' },
-	{ 'iso639-3':'ifa', file:'ifa' }, */
+	{ 'iso639-3':'ifa', file:'ifa' }, 
 	{ 'iso639-3':'ifb', file:'ifb' },
 	{ 'iso639-3':'ife', file:'ife' },
 	{ 'iso639-3':'ifk', file:'ifk' },
@@ -412,7 +412,7 @@ module.exports = [/*
 	{ 'iso639-3':'kac', file:'kac' },
 	{ 'iso639-3':'kao', file:'kao' },
 	{ 'iso639-3':'kaq', file:'kaq' },
-	{ 'iso639-3':'geo', file:'ka' }, /**/
+	{ 'iso639-3':'geo', file:'ka' }, /** /
 	{ 'iso639-3':'kat', file:'ka' },
 	{ 'iso639-3':'kbh', file:'kbh' },
 	{ 'iso639-3':'kbm', file:'kbm' },
@@ -457,7 +457,10 @@ module.exports = [/*
 	{ 'iso639-3':'kno', file:'kno' },
 	{ 'iso639-3':'kan', file:'kn' },
 	{ 'iso639-3':'knv', file:'knv' },
-	{ 'iso639-3':'kog', file:'kog' },
+	{ 'iso639-3':'kog', file:'kog' }, 
+
+	{ 'iso639-3':'oci', file:'oc', "corpus-limit": 30000 },
+
 	{ 'iso639-3':'kpf', file:'kpf' },
 	{ 'iso639-3':'kpg', file:'kpg' },
 	{ 'iso639-3':'kpr', file:'kpr' },
@@ -493,7 +496,7 @@ module.exports = [/*
 	{ 'iso639-3':'kxc', file:'kxc' },
 	{ 'iso639-3':'kxm', file:'kxm' },
 	{ 'iso639-3':'kyc', file:'kyc' },
-	{ 'iso639-3':'kyf', file:'kyf' },
+	{ 'iso639-3':'kyf', file:'kyf' }, 
 	{ 'iso639-3':'kyg', file:'kyg' },
 	{ 'iso639-3':'kyq', file:'kyq' },
 	{ 'iso639-3':'kir', file:'ky' },
@@ -605,7 +608,7 @@ module.exports = [/*
 	{ 'iso639-3':'moa', file:'moa' },
 	{ 'iso639-3':'mog', file:'mog' },
 	{ 'iso639-3':'mop', file:'mop' },
-	{ 'iso639-3':'mor', file:'mor' },
+	{ 'iso639-3':'mor', file:'mor' }, 
 	{ 'iso639-3':'mox', file:'mox' },
 	{ 'iso639-3':'mpg', file:'mpg' },
 	{ 'iso639-3':'mpm', file:'mpm' },
@@ -699,7 +702,7 @@ module.exports = [/*
 	{ 'iso639-3':'nyo', file:'nyo' },
 	{ 'iso639-3':'nya', file:'ny' },
 	{ 'iso639-3':'nyy', file:'nyy' },
-	{ 'iso639-3':'nzi', file:'nzi' },
+	{ 'iso639-3':'nzi', file:'nzi' }, 
 	{ 'iso639-3':'obo', file:'obo' },
 	{ 'iso639-3':'oci', file:'oc', "corpus-limit": 30000 },
 	{ 'iso639-3':'oku', file:'oku' },
@@ -733,7 +736,7 @@ module.exports = [/*
 	{ 'iso639-3':'pol', file:'pl', "corpus-limit": 30000 },
 	{ 'iso639-3':'plw', file:'plw' },
 	{ 'iso639-3':'pmf', file:'pmf' },
-	{ 'iso639-3':'pny', file:'pny' },
+	{ 'iso639-3':'pny', file:'pny' }, 
 	{ 'iso639-3':'poh', file:'poh' },
 	{ 'iso639-3':'poi', file:'poi' },
 	{ 'iso639-3':'poy', file:'poy' },
@@ -797,7 +800,7 @@ module.exports = [/*
 	{ 'iso639-3':'ruf', file:'ruf' },
 	{ 'iso639-3':'rug', file:'rug' },
 	{ 'iso639-3':'rus', file:'ru', "corpus-limit": 30000 },
-	{ 'iso639-3':'rwo', file:'rwo' }, /*
+	{ 'iso639-3':'rwo', file:'rwo' }, 
 	{ 'iso639-3':'kin', file:'rw' }, 
 	{ 'iso639-3':'sab', file:'sab' },
 	{ 'iso639-3':'sah', file:'sah' },
@@ -841,7 +844,7 @@ module.exports = [/*
 	{ 'iso639-3':'sps', file:'sps' },
 	{ 'iso639-3':'sqi', file:'sq' },
 	{ 'iso639-3':'sri', file:'sri' },
-	{ 'iso639-3':'sr-Latn', file:'sr-Latn' },/** /
+	{ 'iso639-3':'sr-Latn', file:'sr-Latn' },/**/
 	{ 'iso639-3':'srm', file:'srm' },
 	{ 'iso639-3':'srn', file:'srn' },
 	{ 'iso639-3':'srp', file:'sr' },
