@@ -316,9 +316,9 @@ module.exports = [
 	{ 'iso639-3':'grb', file:'grb' },
 	{ 'iso639-3':'grt', file:'grt' },
 	{ 'iso639-3':'gso', file:'gso' },
-	{ 'iso639-3':'gsw-u-sd-chag', file:'gsw-u-sd-chag' }, /** /
-	{ 'iso639-3':'gsw-u-sd-chbe', file:'gsw-u-sd-chbe' }, /** /
-	{ 'iso639-3':'gsw-u-sd-chfr', file:'gsw-u-sd-chfr' }, /** /
+	{ 'iso639-3':'gsw-u-sd-chag', file:'gsw-u-sd-chag' }, /**/
+	{ 'iso639-3':'gsw-u-sd-chbe', file:'gsw-u-sd-chbe' }, /**/
+	{ 'iso639-3':'gsw-u-sd-chfr', file:'gsw-u-sd-chfr' }, /**/
 	{ 'iso639-3':'gub', file:'gub' },
 	{ 'iso639-3':'guc', file:'guc' },
 	{ 'iso639-3':'gud', file:'gud' },
@@ -364,7 +364,7 @@ module.exports = [
 	{ 'iso639-3':'huu', file:'huu' }, 
 	{ 'iso639-3':'huv', file:'huv' },
 	{ 'iso639-3':'hvn', file:'hvn' }, 
-	{ 'iso639-3':'arm', file:'hy' }, /** /
+	{ 'iso639-3':'arm', file:'hy' }, /**/
 	{ 'iso639-3':'hye', file:'hy' },
 	{ 'iso639-3':'ian', file:'ian' },
 	{ 'iso639-3':'iba', file:'iba' },
@@ -412,7 +412,7 @@ module.exports = [
 	{ 'iso639-3':'kac', file:'kac' },
 	{ 'iso639-3':'kao', file:'kao' },
 	{ 'iso639-3':'kaq', file:'kaq' },
-	{ 'iso639-3':'geo', file:'ka' }, /** /
+	{ 'iso639-3':'geo', file:'ka' }, /**/
 	{ 'iso639-3':'kat', file:'ka' },
 	{ 'iso639-3':'kbh', file:'kbh' },
 	{ 'iso639-3':'kbm', file:'kbm' },
@@ -458,9 +458,7 @@ module.exports = [
 	{ 'iso639-3':'kan', file:'kn' },
 	{ 'iso639-3':'knv', file:'knv' },
 	{ 'iso639-3':'kog', file:'kog' }, 
-
 	{ 'iso639-3':'oci', file:'oc', "corpus-limit": 30000 },
-
 	{ 'iso639-3':'kpf', file:'kpf' },
 	{ 'iso639-3':'kpg', file:'kpg' },
 	{ 'iso639-3':'kpr', file:'kpr' },
