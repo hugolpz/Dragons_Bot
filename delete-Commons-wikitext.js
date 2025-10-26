@@ -1,6 +1,7 @@
 // PURPOSE: For a given a category, gets the list of pages, edits existing content.
 const Wikiapi= require('wikiapi');
 const logins = require('./logins.js');
+const videos = require('./data/videos.js');
 
 // Login credentials from .login*.js
 var USER = logins.commons.user,
@@ -14,10 +15,10 @@ var USER = logins.commons.user,
     console.log(`Username ${USER} is connected !`);
 
     // List of targets
-    const list = await targetWiki.categorymembers('Category:Dragons Bot HSK');
+    const list = await targetWiki.categorymembers('') // ('Category:Dragons Bot HSK');
 
     // Loop on targets
-    for(i=0;i<list.length;i++){
+    for(i=0;i<videos.length;i++){
         console.log(list[i]);
         var currPage = list[i]; // target page's page_data
         
