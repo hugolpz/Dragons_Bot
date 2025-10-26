@@ -17,8 +17,9 @@
   "author": "hugolpz",
   "license": "ISC",
   "dependencies": {
-    "cejs": "github:kanasimi/cejs",
+    "cejs": "latest",
     "npm-check-updates": "latest",
-    "wikiapi": "github:kanasimi/wikiapi"
+    "wikiapi": "latest",
+    "ffmpeg-normalize": "latest"
   }
 }
