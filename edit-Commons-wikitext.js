@@ -1,6 +1,6 @@
 // PURPOSE: For a given a category, gets the list of pages, edits existing content.
 const Wikiapi= require('wikiapi');
-const logins = require('./logins-ShufaBot.js');
+const logins = require('./logins.js');
 
 // Login credentials from .login*.js
 var USER = logins.commons.user,
@@ -19,18 +19,16 @@ var USER = logins.commons.user,
     // Loop on targets
     for(i=0;i<list.length;i++){
         console.log(list[i]);
-        var currPage = list[i], // target page's page_data
-            title= currPage.title,
-            text= currPage.text;
+        var currPage = list[i]; // target page's page_data
+        
         // Page exist ?
-        let pageData = await targetWiki.page(title, {});
+        var pageData = await targetWiki.page(currPage.title, {});
         
         if(pageData.wikitext!=='') {
 
             //Edit page, replace string:
-            await targetWiki.edit_page(title, function(page_data) {
-                return page_data.wikitext.replace(/toto/g,'')         // <------- regex match and replacement
-                    + `\n[[Category:ShufaBot test: edit]]`;
+            await targetWiki.edit_page(currPage.title, function(page_data) {
+                return page_data.wikitext.replace(/ShufaBot test/g,'ShufaBot tests');         // <------- regex match and replacement
             }, {bot: 1, nocreate: 1, minor: 1, summary: 'ShufaBot test: edit'});
             console.log('Done.');
         }
