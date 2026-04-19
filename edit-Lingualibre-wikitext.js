@@ -2,7 +2,6 @@ const Wikiapi= require('wikiapi');
 const fetch  = require('node-fetch');
 const fs     = require('fs');
 const logins = require('./logins.js');
-const langs  = require('./files-unilex-all.js');
 
 // Edit login credentials
 var USER = logins.lili.user,

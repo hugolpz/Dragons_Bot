@@ -1,6 +1,7 @@
 {
   "name": "dragons-bot",
   "version": "0.0.1",
+  "type": "module",
   "description": "bot to edit wikidata and lingualibre",
   "main": "index.js",
   "scripts": {
@@ -20,6 +21,9 @@
     "cejs": "latest",
     "npm-check-updates": "latest",
     "wikiapi": "latest",
-    "ffmpeg-normalize": "latest"
+    "ffmpeg-normalize": "latest",
+    "m3api":"latest",
+    "m3api-botpassword":"latest",
+    "m3api-query":"latest"
   }
 }
