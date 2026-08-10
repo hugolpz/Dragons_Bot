@@ -1,49 +1,40 @@
-// PURPOSE: Script renames targets following hand-coded patters.
-const Wikiapi= require('wikiapi');
-const logins = require('./logins.js');
+// PURPOSE: Script renames targets following hand-coded patterns.
+import logins from './logins.js';
+import { createSession, getCategoryMembers, getPageWikitext, movePage } from './m3api-utils.js';
 
-// Login credentials from .login*.js
-var USER = logins.commons.user,
-	PASS = logins.commons.pass,
-	API  = logins.commons.api;
+const USER = logins.commons.user;
 
 (async () => {
-    // Connect
-    const targetWiki = new Wikiapi;
-    await targetWiki.login(USER, PASS, API);
-    console.log(`Username ${USER} is connected !`);
+	const targetWiki = await createSession(logins.commons);
+	console.log(`Username ${USER} is connected!`);
 
-    // List of targets
-    const list = await targetWiki.categorymembers('Files_supported_by_Wikimedia_France_-_Elix'); // 'ShufaBot test: upload');
+	const list = await getCategoryMembers(targetWiki, 'Files_supported_by_Wikimedia_France_-_Elix');
 
-    // Loop on targets
-    for(i=0;i<[list[0]].length;i++){
-        console.log(list[i]);
-        var currPage = list[i]; // target page's page_data
+	for (let i = 0; i < [list[0]].length; i++) {
+		const currPage = list[i];
+		console.log(currPage);
 
-        // Page exist ?
-        let pageData = await targetWiki.page(currPage.title, {});
-        
-        if(pageData.wikitext!=='') {
+		const pageData = await getPageWikitext(targetWiki, currPage.title);
+		if (pageData === '') {
+			continue;
+		}
 
-            //Edit filename and move (twice):
-            var initialTitle=currPage.title,
-                newTitle=initialTitle.replace(/.ogv/gi,'.webm'),             // <------- regex match and replacement to change name via pattern
-                reason='Test: prepare renaming file for category.',
-                revertReason='Test: prepare renaming file, revert.';
-            console.log(initialTitle,newTitle);
-            try{
-                // Rename with method `.move_page(curr,new, {options})`
-                result = await targetWiki.move_page(initialTitle, newTitle, { reason: reason, noredirect: true, movetalk: true, ignorewarnings: true });
-            }catch(e){console.error(e);}
-            /* 
-            try{
-                // Revert rename with method `.move_to(newname, {options})`
-                await targetWiki.page(newTitle);
-                result = await targetWiki.move_to(initialTitle, { reason: revertReason, noredirect: true, movetalk: true });
-            }catch(e){ console.error(e); }   // catch error message if any
-            */
-            console.log('Done.');
-        }
-    }
+		const initialTitle = currPage.title;
+		const newTitle = initialTitle.replace(/.ogv/gi, '.webm');
+		const reason = 'Test: prepare renaming file for category.';
+
+		console.log(initialTitle, newTitle);
+		try {
+			await movePage(targetWiki, initialTitle, newTitle, {
+				reason,
+				noredirect: true,
+				movetalk: true,
+				ignorewarnings: true,
+			});
+		} catch (e) {
+			console.error(e);
+		}
+
+		console.log('Done.');
+	}
 })();

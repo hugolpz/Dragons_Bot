@@ -1,25 +1,17 @@
-const Wikiapi= require('wikiapi');
-const fetch  = require('node-fetch');
-const fs     = require('fs');
-const logins = require('./logins.js');
+// PURPOSE: Edits Lingua Libre pages by replacing a pattern in existing content.
+import logins from './logins.js';
+import { createSession, editPage } from './m3api-utils.js';
 
-// Edit login credentials
-var USER = logins.lili.user,
-	PASS = logins.lili.pass,
-	API  = logins.lili.api;
-    category = '';
-    matchPattern = '';
-    replacePattern = '';
+const matchPattern = '';
+const replacePattern = '';
+
 (async () => {
-    // Connect
-    const targetWiki = new Wikiapi;
-    await targetWiki.login(USER, PASS, API);
+	const targetWiki = await createSession(logins.lili);
 
-    // Print list to page
-    await targetWiki.edit_page('User:Yug', function(page_data) {
-        // console.log('pagedata',page_data)
-        console.log(wiki_session)
-        return page_data.replace(matchPattern,replacePattern);
-    }, {bot: 1, minor: 1, summary: 'Fix'});
-
+	await editPage(
+		targetWiki,
+		'User:Yug',
+		({ wikitext }) => wikitext.replace(matchPattern, replacePattern),
+		{ nocreate: true, minor: true, summary: 'Fix' },
+	);
 })();

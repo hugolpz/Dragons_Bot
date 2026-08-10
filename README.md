@@ -1,9 +1,10 @@
-**LiList Bot** is a WikiAPI JS bot to upload local list files onto LinguaLibre.org
+**LiList Bot** is an m3api-based JS bot to upload local list files onto LinguaLibre.org
 
 ### Dependencies
 * nodejs
 * npm
 * git
+* m3api ecosystem (`m3api`, `m3api-botpassword`, `m3api-oauth2`)
 
 ### Install
 ```bash
