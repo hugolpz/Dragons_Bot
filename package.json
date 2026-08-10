@@ -20,10 +20,10 @@
   "dependencies": {
     "cejs": "latest",
     "npm-check-updates": "latest",
-    "wikiapi": "latest",
     "ffmpeg-normalize": "latest",
-    "m3api":"latest",
-    "m3api-botpassword":"latest",
-    "m3api-query":"latest"
+    "m3api": "latest",
+    "m3api-botpassword": "latest",
+    "m3api-oauth2": "latest",
+    "m3api-query": "latest"
   }
 }

@@ -1,37 +1,26 @@
-// PURPOSE: For a given a category, gets the list of pages, edits existing content.
-const Wikiapi= require('wikiapi');
-const logins = require('./logins.js');
+// PURPOSE: For a given category, gets the list of pages, edits existing content.
+import logins from './logins.js';
+import { createSession, getCategoryMembers, editPage } from './m3api-utils.js';
 
-// Login credentials from .login*.js
-var USER = logins.commons.user,
-	PASS = logins.commons.pass,
-	API  = logins.commons.api;
+const USER = logins.commons.user;
 
 (async () => {
-    // Connect
-    const targetWiki = new Wikiapi;
-    await targetWiki.login(USER, PASS, API);
-    console.log(`Username ${USER} is connected !`);
+	const targetWiki = await createSession(logins.commons);
+	console.log(`Username ${USER} is connected!`);
 
-    // List of targets
-    const list = await targetWiki.categorymembers('ShufaBot test: upload');
+	const list = await getCategoryMembers(targetWiki, 'ShufaBot test: upload');
 
-    // Loop on targets
-    for(i=0;i<list.length;i++){
-        console.log(list[i]);
-        var currPage = list[i]; // target page's page_data
-        
-        // Page exist ?
-        var pageData = await targetWiki.page(currPage.title, {});
-        
-        if(pageData.wikitext!=='') {
+	for (let i = 0; i < list.length; i++) {
+		const currPage = list[i];
+		console.log(currPage);
 
-            //Edit page, replace string:
-            await targetWiki.edit_page(currPage.title, function(page_data) {
-                return page_data.wikitext.replace(/ShufaBot test/g,'ShufaBot tests');         // <------- regex match and replacement
-            }, {bot: 1, nocreate: 1, minor: 1, summary: 'ShufaBot test: edit'});
-            console.log('Done.');
-        }
+		const result = await editPage(
+			targetWiki,
+			currPage.title,
+			({ wikitext }) => wikitext.replace(/ShufaBot test/g, 'ShufaBot tests'),
+			{ bot: true, nocreate: true, minor: true, summary: 'ShufaBot test: edit' },
+		);
 
-    }
+		console.log(result?.skipped ? 'Skipped (no change).' : 'Done.');
+	}
 })();
